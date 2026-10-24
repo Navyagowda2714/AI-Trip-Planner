@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+.streamlit/secrets.toml
+.pytest_cache/
+.ipynb_checkpoints/
+logs/
+*.log
+output/
+my_graph.png
+.DS_Store

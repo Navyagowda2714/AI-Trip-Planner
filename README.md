@@ -18,6 +18,7 @@ src="https://capsule-render.vercel.app/api?type=waving&color=0:070A12,45:1E3A8A,
 
 <br/><br/>
 
+<a href="#-quickstart"><b>Quickstart</b></a> •
 <a href="#-experience-orchestration"><b>Experience Flow</b></a> •
 <a href="#-neural-travel-brain"><b>Neural Brain</b></a> •
 <a href="#-cognitive-flow-model"><b>Cognitive Model</b></a> •
@@ -26,6 +27,65 @@ src="https://capsule-render.vercel.app/api?type=waving&color=0:070A12,45:1E3A8A,
 <a href="#-contact"><b>Contact</b></a>
 
 </div>
+
+---
+
+
+<!-- quickstart:start -->
+# 🚀 Quickstart
+
+[![tests](https://github.com/Navyagowda2714/AI-Trip-Planner/actions/workflows/tests.yml/badge.svg)](https://github.com/Navyagowda2714/AI-Trip-Planner/actions/workflows/tests.yml)
+
+**Requirements:** Python 3.10+ and API keys for an LLM plus the tools:
+
+| Key | Used for | Free tier |
+|---|---|---|
+| `GROQ_API_KEY` (or `OPENAI_API_KEY`) | LLM that drives the agent | [console.groq.com](https://console.groq.com) |
+| `TAVILY_API_KEY` | Web search fallback for places | [tavily.com](https://tavily.com) |
+| `GPLACES_API_KEY` | Google Places search | Google Cloud |
+| `OPENWEATHERMAP_API_KEY` | Current weather + forecast | [openweathermap.org](https://openweathermap.org/api) |
+| `EXCHANGE_RATE_API_KEY` | Currency conversion | [exchangerate-api.com](https://www.exchangerate-api.com) |
+
+```bash
+git clone https://github.com/Navyagowda2714/AI-Trip-Planner.git
+cd AI-Trip-Planner
+python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+cp .env.example .env        # then fill in your keys
+```
+
+**Option A — one process (simplest):** the Streamlit app runs the LangGraph agent directly.
+
+```bash
+streamlit run streamlit_app.py          # → http://localhost:8501
+```
+
+**Option B — API + UI:** run the FastAPI backend and point the UI at it.
+
+```bash
+uvicorn main:app --reload --port 8000   # POST /query {"question": "..."}
+BACKEND_URL=http://localhost:8000 streamlit run streamlit_app.py
+```
+
+**Run the tests** — no API keys needed, all external calls are mocked:
+
+```bash
+pip install -r requirements-dev.txt
+pytest -v
+```
+
+**Deploy your own live demo (Streamlit Community Cloud, free):** fork the repo → [share.streamlit.io](https://share.streamlit.io) → *New app* → main file `streamlit_app.py` → paste your keys under *Advanced settings → Secrets* using the format in `.streamlit/secrets.toml.example`.
+
+| Path | What it is |
+|---|---|
+| `agent/agentic_workflow.py` | LangGraph `StateGraph`: agent node ↔ tool node loop |
+| `tools/` | LangChain tools exposed to the agent (weather, places, currency, expenses) |
+| `utils/` | API clients and helpers the tools call |
+| `prompt_library/prompt.py` | System prompt for the travel agent |
+| `main.py` | FastAPI backend (`POST /query`) |
+| `streamlit_app.py` | Streamlit UI (standalone or backend-client mode) |
+| `tests/` | pytest suite, runs in CI on every push |
+<!-- quickstart:end -->
 
 ---
 

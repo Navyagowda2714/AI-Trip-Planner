@@ -1,10 +1,9 @@
 [project]
 name = "ai-trip-planner"
 version = "0.1.0"
-description = "AI Trip Planner is an intelligent travel assistant that creates personalized itineraries based on user preferences, budget, and dates. It recommends destinations, attractions, accommodations, and routes helping travelers plan smarter, faster, and stress-free.
-"
+description = "Agentic travel planner (LangGraph + FastAPI + Streamlit) that builds day-by-day itineraries with live weather, places, currency and cost tools."
 readme = "README.md"
 requires-python = ">=3.10"
-dependencies = [
-    "pandas>=2.3.0",
-]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
